@@ -1,0 +1,27 @@
+{
+  "name": "pctrozos",
+  "version": "1.0.0",
+  "description": "E-commerce de componentes de PC",
+  "homepage": "https://github.com/vrodrm/pctrozos#readme",
+  "bugs": {
+    "url": "https://github.com/vrodrm/pctrozos/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vrodrm/pctrozos.git"
+  },
+  "license": "ISC",
+  "author": "Vicente Rodriguez",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "pug": "^3.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

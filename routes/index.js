@@ -4,7 +4,7 @@ import { Producto } from "../models/Producto.js"
 const router = Router();
 
 router.get('/', async (req, res) => {
-  let productos = await Producto.findAll();
+  let productos = await Producto.findAll({ limit: 1000 });
 
   console.log(productos)
 

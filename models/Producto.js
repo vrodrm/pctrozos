@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import db from '../config/db.js';
 
-export const Producto = db.define('productos', {
+export const Producto = db.define('products', {
   type: {
     type: Sequelize.STRING,
   },

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authenticate, register, showLogin, logout } from "../controllers/usuarioController.js";
+import { authenticate, register, showLogin, logout, showProfile } from "../controllers/usuarioController.js";
 import { showBuild, getPiezas } from "../controllers/buildController.js";
 
 const router = Router();
@@ -21,6 +21,8 @@ router.get('/register', (req, res) => {
 router.post('/register', register);
 
 router.post('/logout', logout);
+
+router.get('/profile', showProfile);
 
 export default router;
 

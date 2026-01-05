@@ -69,3 +69,11 @@ export const logout = (req, res) => {
   res.clearCookie('access_token')
     .redirect('/login');
 }
+
+export const showProfile = (req, res) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+
+  res.render('perfil');
+}

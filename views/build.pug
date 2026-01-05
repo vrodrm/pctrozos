@@ -13,8 +13,7 @@ block content
                 div
                   h5.mb-0 #{categoria.nombre}
                   small.text-muted.selected-name(id=`label-${categoria.id}`) Ninguno seleccionado
-                button.btn.btn-outline-primary.btn-sm(type="button" data-bs-toggle="modal" data-bs-target=`#modal-${categoria.id}`) 
-                  i.bi.bi-plus-lg  Seleccionar
+                button.btn.btn-outline-primary.btn-sm(type="button" data-bs-toggle="modal" data-bs-target=`#modal-${categoria.id}`) Seleccionar
 
             // Modal para cada categoría
             .modal.fade(id=`modal-${categoria.id}` tabindex="-1")

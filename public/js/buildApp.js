@@ -115,7 +115,7 @@ function renderPagination(category, currentPage, totalPages) {
 }
 function selectPart(category, id, name, price, image_url) {
   // 1. Guardar en nuestro objeto de estado
-  selectedParts[category] = { id, name, price, image_url };
+  selectedParts[category] = { id, name, price: parseFloat(price) || 0, image_url };
 
   // 2. Actualizar el label en la tarjeta
   document.getElementById(`label-${category}`).innerText = name;
@@ -137,7 +137,7 @@ function updateSummary() {
     // Añadir a la lista visual
     summaryList.innerHTML += `
         <li class="list-group-item d-flex justify-content-between align-items-center small gap-2">
-          <img class="object-fit-contain" src=${part.image_url} width=50 height=50 ></img>${part.name} <span>${part.price}€</span>
+          <img class="object-fit-contain" src=${part.image_url} width=50 height=50 ></img>${part.name} <span>${part.price.toFixed(2)}€</span>
         </li>`;
 
     // Crear input oculto para el POST

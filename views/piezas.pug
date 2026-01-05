@@ -1,0 +1,17 @@
+extends layout.pug
+
+block content
+  .container
+    h2.mb-4.text-center Catálogo de Piezas
+    .row.g-4
+      each producto in productos
+        .col-md-6.col-lg-4
+          .card.h-100.shadow-sm
+            img.card-img-top.p-3(src=producto.image_url, alt=producto.name, style="object-fit: contain; height: 200px;")
+            .card-body.d-flex.flex-column
+              h5.card-title= producto.name
+              p.card-text
+                span.badge.bg-secondary= producto.type
+              p.card-text.mt-auto
+                // Placeholder for price or description if available in future
+                span.badge.bg-primary Pieza

@@ -1,0 +1,12 @@
+extends layout.pug
+
+block content
+  .container-fluid.p-0.h-100
+    .h-100.position-relative.overflow-hidden(style="background: url('https://www.shutterstock.com/image-photo/assembling-computer-parts-on-white-600nw-2559272847.jpg') no-repeat center center; background-size: cover;")
+      .hero-gradient.position-absolute.top-0.start-0.w-100.h-100(style="background: linear-gradient(to left, rgba(255,255,255,0) 20%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,1) 80%);")
+      .h-100.position-relative
+        .row.h-100.align-items-center
+          .col-md-3.offset-md-1
+            h1.display-3.fw-bold.text-dark PCTrozos
+            p.lead.mb-4.text-muted Construye la máquina de tus sueños con la mejor selección de componentes.
+            a.btn.btn-primary.btn-lg.px-5.py-3.rounded-pill.shadow(href="/build") Empieza a configurar

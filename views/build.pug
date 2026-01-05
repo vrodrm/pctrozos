@@ -1,0 +1,58 @@
+extends layout
+
+block content
+  .container.py-5
+    h1.mb-4.text-center Configura tu PC 
+    form#buildForm(action="/builds/save" method="POST")
+      .row
+        // Columna Izquierda: Selección de Piezas
+        .col-md-8
+          each categoria in categorias
+            .card.mb-3.shadow-sm
+              .card-body.d-flex.justify-content-between.align-items-center
+                div
+                  h5.mb-0 #{categoria.nombre}
+                  small.text-muted.selected-name(id=`label-${categoria.id}`) Ninguno seleccionado
+                button.btn.btn-outline-primary.btn-sm(type="button" data-bs-toggle="modal" data-bs-target=`#modal-${categoria.id}`) 
+                  i.bi.bi-plus-lg  Seleccionar
+
+            // Modal para cada categoría
+            .modal.fade(id=`modal-${categoria.id}` tabindex="-1")
+              .modal-dialog.modal-lg
+                .modal-content
+                  .modal-header
+                    h5.modal-title Seleccionar #{categoria.nombre}
+                    button.btn-close(type="button" data-bs-dismiss="modal")
+                  .modal-body
+                    // Search Input
+                    .input-group.mb-3
+                      input.form-control.search-input(type="text" placeholder="Buscar pieza..." id=`search-${categoria.id}` data-category=categoria.id)
+                      
+                    // Container for parts list
+                    .list-group(id=`list-group-${categoria.id}`)
+                      .text-center.p-3 Cargando...
+                    
+                    // Pagination Controls
+                    nav.mt-3(aria-label="Page navigation")
+                      ul.pagination.justify-content-center(id=`pagination-${categoria.id}`)
+                        // Pagination will be injected here
+
+        // Columna Derecha: Resumen y Precio
+        .col-md-4
+          .card.sticky-top(style="top: 20px;")
+            .card-header.bg-dark.text-white
+              h5.mb-0 Resumen
+            .card-body
+              ul#summaryList.list-group.list-group-flush.mb-3
+                // Se llena con JS
+              hr
+              .d-flex.justify-content-between.align-items-center
+                h4 Total:
+                h4#totalPrice 0€
+
+              // Inputs ocultos para enviar al backend
+              #hiddenInputs
+
+              button.btn.btn-primary.w-100.mt-3(type="submit") Guardar Configuración
+
+  script(src="js/buildApp.js")

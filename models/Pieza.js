@@ -1,7 +1,8 @@
 import Sequelize from 'sequelize';
 import db from '../config/db.js';
+import { Build } from './Build.js';
 
-export const Producto = db.define('products', {
+export const Pieza = db.define('parts', {
   type: {
     type: Sequelize.STRING,
   },
@@ -10,5 +11,10 @@ export const Producto = db.define('products', {
   },
   image_url: {
     type: Sequelize.STRING,
+  },
+  price: {
+    type: Sequelize.FLOAT
   }
 });
+
+Pieza.belongsToMany(Build, { through: 'BuildParts' });

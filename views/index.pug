@@ -1,8 +1,0 @@
-extends layout.pug
-
-block content
-  .row
-    each producto of productos
-      .col-4
-        img(src=producto.image_url, alt="", width=200)
-        p=producto.name

@@ -1,17 +1,26 @@
 import { Router } from "express";
-import { Producto } from "../models/Producto.js"
+import { authenticate, register, showLogin, logout } from "../controllers/usuarioController.js";
+import { showBuild, getPiezas } from "../controllers/buildController.js";
 
 const router = Router();
 
-router.get('/', async (req, res) => {
-  let productos = await Producto.findAll({ limit: 1000 });
+router.get('/', (req, res) => {
+  res.render('landing');
+})
 
-  console.log(productos)
+router.get('/build', showBuild);
+router.get('/api/piezas', getPiezas);
 
-  res.render("index", {
-    productos: productos,
-  })
-});
+router.get('/login', showLogin);
+router.post('/login', authenticate)
+
+router.get('/register', (req, res) => {
+  res.render('registro');
+})
+
+router.post('/register', register);
+
+router.post('/logout', logout);
 
 export default router;
 

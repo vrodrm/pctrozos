@@ -15,7 +15,6 @@ Este es un proyecto educativo desarrollado para la asignatura de **Programación
 - **Backend:** [Node.js](https://nodejs.org/) con [Express](https://expressjs.com/).
 - **Base de Datos:** [MySQL](https://www.mysql.com/) gestionado a través del ORM [Sequelize](https://sequelize.org/).
 - **Vistas:** [Pug](https://pugjs.org/) para el renderizado del lado del servidor.
-- **Estilos:** CSS (incluido en la carpeta `public`).
 - **Seguridad:** [bcrypt](https://www.npmjs.com/package/bcrypt) para hashing y [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) para sesiones.
 
 ## Requisitos Previos
@@ -70,4 +69,4 @@ Este es un proyecto educativo desarrollado para la asignatura de **Programación
 
 ## Autor
 
-- **Vicente Rodríguez** - [GitHub](https://github.com/vrodrm)
+- **Vicente Rodríguez Manjón**

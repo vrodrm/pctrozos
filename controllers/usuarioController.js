@@ -39,7 +39,7 @@ export const authenticate = async (req, res) => {
     return res.render("login", { errores: erroresValidacion });
   }
 
-  const user = await Usuario.findOne({ username });
+  const user = await Usuario.findOne({ where: { username } });
 
   if (!user) {
     return res.render("login", { errores: [`El usuario "${username}" no existe`] });
@@ -57,8 +57,6 @@ export const authenticate = async (req, res) => {
     { expiresIn: '1d' }
   );
 
-  //TODO: Cambiar redirect
-  // relacionado con ver otros perfiles
   res.cookie('access_token', token, {
     httpOnly: true,
     sameSite: 'strict',

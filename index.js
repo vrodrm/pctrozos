@@ -1,6 +1,6 @@
 import express from "express";
 import router from "./routes/index.js";
-import db from "./config/db.js";
+import { db } from "./models/index.js";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 
@@ -15,7 +15,7 @@ await db.sync();
 
 app.set("view engine", "pug")
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 

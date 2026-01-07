@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import db from '../config/db.js';
-import { Usuario } from './Usuario.js';
 
+//TODO: añadir titulo
 export const Build = db.define('builds', {
   id: {
     primaryKey: true,
@@ -9,5 +9,3 @@ export const Build = db.define('builds', {
   },
 });
 
-//Build.belongsTo(Usuario);
-//Build.belongsToMany(Part, { through: 'BuildParts' });

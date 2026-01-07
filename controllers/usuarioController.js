@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import crypto from "node:crypto";
-import { Usuario } from "../models/Usuario.js";
+import { Usuario, Build, Pieza } from "../models/index.js";
 import { validarLogin, validarRegistro } from "../validators/usuarioValidator.js";
 import jwt from "jsonwebtoken";
 
@@ -58,11 +58,12 @@ export const authenticate = async (req, res) => {
   );
 
   //TODO: Cambiar redirect
+  // relacionado con ver otros perfiles
   res.cookie('access_token', token, {
     httpOnly: true,
     sameSite: 'strict',
     maxAge: 1000 * 60 * 60 // 1 hora
-  }).redirect('/build');
+  }).redirect('/profile');
 }
 
 export const logout = (req, res) => {
@@ -70,10 +71,30 @@ export const logout = (req, res) => {
     .redirect('/login');
 }
 
-export const showProfile = (req, res) => {
+export const showProfile = async (req, res) => {
   if (!req.session.user) {
     return res.redirect('/login');
   }
 
-  res.render('perfil');
+  const userBuilds = await Build.findAll({
+    where: { userId: req.session.user.id },
+    include: [
+      { model: Pieza, as: 'cpu' },
+      { model: Pieza, as: 'motherboard' },
+      { model: Pieza, as: 'memory' },
+      { model: Pieza, as: 'gpu' },
+      { model: Pieza, as: 'cooler' },
+      { model: Pieza, as: 'case' },
+      { model: Pieza, as: 'psu' },
+      { model: Pieza, as: 'storage' }
+    ]
+  });
+
+  res.render('perfil', {
+    builds: userBuilds,
+  });
 }
+
+//TODO: Método para ver otros perfiles
+// si el usuario que hace la request es el mismo de la url
+// redirigir a /profile O MEJOR, renderizar el perfil )?

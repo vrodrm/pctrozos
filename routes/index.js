@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { authenticate, register, showLogin, logout, showProfile } from "../controllers/usuarioController.js";
-import { showBuild, getPiezas } from "../controllers/buildController.js";
+import { showBuild, getPiezas, saveBuild } from "../controllers/buildController.js";
 
 const router = Router();
 
@@ -9,6 +9,8 @@ router.get('/', (req, res) => {
 })
 
 router.get('/build', showBuild);
+router.post('/build/save', saveBuild);
+
 router.get('/api/piezas', getPiezas);
 
 router.get('/login', showLogin);

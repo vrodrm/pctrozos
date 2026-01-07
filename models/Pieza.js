@@ -16,5 +16,3 @@ export const Pieza = db.define('parts', {
     type: Sequelize.FLOAT
   }
 });
-
-Pieza.belongsToMany(Build, { through: 'BuildParts' });

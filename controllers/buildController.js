@@ -1,4 +1,4 @@
-import { Pieza } from "../models/Pieza.js"
+import { Build, Pieza } from '../models/index.js';
 import { Op } from 'sequelize';
 
 const categorias = [
@@ -48,6 +48,33 @@ export const getPiezas = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching parts" });
+    res.status(500).json({ message: "Error recuperando piezas." });
+  }
+}
+
+export const saveBuild = async (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).send("Debes iniciar sesión para guardar builds");
+  }
+
+  const { partIds } = req.body;
+
+  try {
+    await Build.create({
+      id: crypto.randomUUID(),
+      userId: req.session.user.id,
+      cpuId: partIds[0],
+      motherboardId: partIds[1],
+      memoryId: partIds[2],
+      gpuId: partIds[3],
+      coolerId: partIds[4],
+      caseId: partIds[5],
+      psuId: partIds[6],
+      storageId: partIds[7]
+    })
+
+    res.redirect('/profile');
+  } catch (error) {
+    res.status(500).send("Error al guardar");
   }
 }

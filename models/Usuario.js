@@ -1,6 +1,5 @@
 import Sequelize from 'sequelize';
 import db from '../config/db.js';
-import { Build } from './Build.js';
 
 export const Usuario = db.define('users', {
   id: {
@@ -15,4 +14,3 @@ export const Usuario = db.define('users', {
   }
 });
 
-//Usuario.hasMany(Build);

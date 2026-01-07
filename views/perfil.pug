@@ -2,5 +2,116 @@ extends layout.pug
 
 block content
   .container.mt-5
-    h2.text-center Builds de 
-      i #{username}
+    .d-flex.justify-content-between.align-items-center.mb-4
+      h2.mb-0 Builds de 
+        i #{username}
+      a.btn.btn-primary.rounded-pill.px-4.fw-bold.shadow-sm(href="/build") 
+        i.bi.bi-plus-lg
+        | Crear Build
+    
+    .row
+      each build in builds
+        - 
+          let totalPrice = 0;
+          if(build.cpu) totalPrice += parseFloat(build.cpu.price) || 0;
+          if(build.motherboard) totalPrice += parseFloat(build.motherboard.price) || 0;
+          if(build.memory) totalPrice += parseFloat(build.memory.price) || 0;
+          if(build.gpu) totalPrice += parseFloat(build.gpu.price) || 0;
+          if(build.cooler) totalPrice += parseFloat(build.cooler.price) || 0;
+          if(build.case) totalPrice += parseFloat(build.case.price) || 0;
+          if(build.psu) totalPrice += parseFloat(build.psu.price) || 0;
+          if(build.storage) totalPrice += parseFloat(build.storage.price) || 0;
+          
+        .col-md-4.mb-4
+          .card.h-100.shadow-sm(style="cursor: pointer;" data-bs-toggle="modal" data-bs-target=`#modal-${build.id}`)
+            if build.case && build.case.image_url
+              img.card-img-top(src=build.case.image_url alt="Case Image" style="object-fit: contain; height: 200px; padding: 10px;")
+            else
+              .bg-secondary.text-white.d-flex.align-items-center.justify-content-center(style="height: 200px;")
+                i.bi.bi-pc-display.fs-1
+            .card-body
+              h5.card-title Build ##{build.id.substring(0, 8)}
+              p.card-text.fw-bold.text-primary Precio: $#{totalPrice.toFixed(2)}
+              
+          .modal.fade(id=`modal-${build.id}` tabindex="-1" aria-hidden="true")
+            .modal-dialog.modal-lg
+              .modal-content
+                .modal-header
+                  h5.modal-title Componentes de la Build
+                  button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                .modal-body
+                  ul.list-group
+                    if build.cpu
+                      li.list-group-item.d-flex.justify-content-between.align-items-center
+                        .d-flex.align-items-center
+                          if build.cpu.image_url
+                            img.me-3(src=build.cpu.image_url alt=build.cpu.name style="width: 50px; height: 50px; object-fit: contain;")
+                          div
+                            strong CPU: 
+                            | #{build.cpu.name}
+                        span.badge.bg-primary.rounded-pill $#{build.cpu.price}
+                    if build.motherboard
+                      li.list-group-item.d-flex.justify-content-between.align-items-center
+                        .d-flex.align-items-center
+                          if build.motherboard.image_url
+                            img.me-3(src=build.motherboard.image_url alt=build.motherboard.name style="width: 50px; height: 50px; object-fit: contain;")
+                          div
+                            strong Motherboard: 
+                            | #{build.motherboard.name}
+                        span.badge.bg-primary.rounded-pill $#{build.motherboard.price}
+                    if build.memory
+                      li.list-group-item.d-flex.justify-content-between.align-items-center
+                        .d-flex.align-items-center
+                          if build.memory.image_url
+                            img.me-3(src=build.memory.image_url alt=build.memory.name style="width: 50px; height: 50px; object-fit: contain;")
+                          div
+                            strong Memoria: 
+                            | #{build.memory.name}
+                        span.badge.bg-primary.rounded-pill $#{build.memory.price}
+                    if build.gpu
+                      li.list-group-item.d-flex.justify-content-between.align-items-center
+                        .d-flex.align-items-center
+                          if build.gpu.image_url
+                            img.me-3(src=build.gpu.image_url alt=build.gpu.name style="width: 50px; height: 50px; object-fit: contain;")
+                          div
+                            strong GPU: 
+                            | #{build.gpu.name}
+                        span.badge.bg-primary.rounded-pill $#{build.gpu.price}
+                    if build.cooler
+                      li.list-group-item.d-flex.justify-content-between.align-items-center
+                        .d-flex.align-items-center
+                          if build.cooler.image_url
+                            img.me-3(src=build.cooler.image_url alt=build.cooler.name style="width: 50px; height: 50px; object-fit: contain;")
+                          div
+                            strong Cooler: 
+                            | #{build.cooler.name}
+                        span.badge.bg-primary.rounded-pill $#{build.cooler.price}
+                    if build.case
+                      li.list-group-item.d-flex.justify-content-between.align-items-center
+                        .d-flex.align-items-center
+                          if build.case.image_url
+                            img.me-3(src=build.case.image_url alt=build.case.name style="width: 50px; height: 50px; object-fit: contain;")
+                          div
+                            strong Case: 
+                            | #{build.case.name}
+                        span.badge.bg-primary.rounded-pill $#{build.case.price}
+                    if build.psu
+                      li.list-group-item.d-flex.justify-content-between.align-items-center
+                        .d-flex.align-items-center
+                          if build.psu.image_url
+                            img.me-3(src=build.psu.image_url alt=build.psu.name style="width: 50px; height: 50px; object-fit: contain;")
+                          div
+                            strong PSU: 
+                            | #{build.psu.name}
+                        span.badge.bg-primary.rounded-pill $#{build.psu.price}
+                    if build.storage
+                      li.list-group-item.d-flex.justify-content-between.align-items-center
+                        .d-flex.align-items-center
+                          if build.storage.image_url
+                            img.me-3(src=build.storage.image_url alt=build.storage.name style="width: 50px; height: 50px; object-fit: contain;")
+                          div
+                            strong Almacenamiento: 
+                            | #{build.storage.name}
+                        span.badge.bg-primary.rounded-pill $#{build.storage.price}
+                .modal-footer
+                  button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cerrar

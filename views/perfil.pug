@@ -32,6 +32,10 @@ block content
             .card-body
               h5.card-title Build ##{build.id.substring(0, 8)}
               p.card-text.fw-bold.text-primary Precio: $#{totalPrice.toFixed(2)}
+              form(action=`/build/delete/${build.id}` method="POST" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta build?');")
+                button.btn.btn-danger.btn-sm.mt-2(type="submit" onclick="event.stopPropagation()") 
+                  i.bi.bi-trash.me-1
+                  | Eliminar
               
           .modal.fade(id=`modal-${build.id}` tabindex="-1" aria-hidden="true")
             .modal-dialog.modal-lg

@@ -37,7 +37,6 @@ app.use((req, res, next) => {
 
 app.use('/', router);
 
-//TODO: Cambiar imagen del hero y guardarla
 app.use(express.static('public'));
 
 app.listen(port, () => {

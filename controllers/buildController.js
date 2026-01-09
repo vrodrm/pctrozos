@@ -1,5 +1,6 @@
 import { Build, Pieza } from '../models/index.js';
 import { Op } from 'sequelize';
+import crypto from 'node:crypto';
 
 const categorias = [
   { id: 'cpu', nombre: 'CPU' },
@@ -76,5 +77,28 @@ export const saveBuild = async (req, res) => {
     res.redirect('/profile');
   } catch (error) {
     res.status(500).send("Error al guardar");
+  }
+}
+
+export const deleteBuild = async (req, res) => {
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+
+  const { id } = req.params;
+
+  try {
+    const build = await Build.findOne({ where: { id, userId: req.session.user.id } });
+
+    if (!build) {
+        return res.status(404).send("Build no encontrada o no autorizada");
+    }
+
+    await build.destroy();
+
+    res.redirect('/profile');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error al eliminar la build");
   }
 }

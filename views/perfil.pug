@@ -118,10 +118,19 @@ block content
                             | #{build.storage.name}
                         span.badge.bg-primary.rounded-pill #{build.storage.price}€
                   .comentarios.mt-2.p-2
-                    h4 Comentarios
+                    h3 Comentarios
                     form(action="/comment" method="POST")
-                      input(type="text" placeholder="Añade un comentario..." name="content").form-control.rounded-pill
+                      input(type="text" placeholder="Añade un comentario..." name="content").form-control
                       input(type="hidden" value=build.id name="buildId")
-                    p.text-center.mt-5 No hay comentarios.
+                    if build.comments && build.comments.length > 0
+                      ul.list-group.mt-3
+                        each comentario in build.comments
+                          li.list-group-item
+                            strong #{comentario.user.username}
+                            br
+                            span #{comentario.contenido}
+
+                    else
+                      p.text-center.mt-5 No hay comentarios.
                 .modal-footer
                   button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cerrar

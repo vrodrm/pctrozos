@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { authenticate, register, showLogin, logout, showProfile } from "../controllers/usuarioController.js";
+import { authenticate, register, showLogin, logout, showProfile, searchProfiles, viewProfile } from "../controllers/usuarioController.js";
 import { showBuild, getPiezas, saveBuild, deleteBuild } from "../controllers/buildController.js";
 import { postComment } from "../controllers/comentarioController.js";
 
@@ -8,6 +8,8 @@ const router = Router();
 router.get('/', (req, res) => {
   res.render('landing');
 })
+
+router.get('/search', searchProfiles);
 
 router.get('/build', showBuild);
 router.post('/build/save', saveBuild);
@@ -27,6 +29,7 @@ router.post('/register', register);
 router.post('/logout', logout);
 
 router.get('/profile', showProfile);
+router.get('/profile/:id', viewProfile);
 
 router.post('/comment', postComment);
 

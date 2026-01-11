@@ -1,0 +1,16 @@
+extends layout.pug
+
+block content
+  .container.py-5
+    h2.mb-4 Resultados de búsqueda para "#{query}"
+    
+    if users.length > 0
+      .row.row-cols-1.row-cols-md-3.g-4
+        each user in users
+          .col
+            .card.h-100.shadow-sm.border-0
+              .card-body
+                h5.card-title.mb-0
+                  a(href=`/profile/${user.id}`)= user.username
+    else
+      .alert.alert-info No se encontraron usuarios con ese nombre.

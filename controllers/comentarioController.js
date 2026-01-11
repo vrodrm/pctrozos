@@ -9,12 +9,12 @@ export const postComment = async (req, res) => {
       id: crypto.randomUUID(),
       contenido: content,
       buildId: buildId,
-      userId: req.session.user.id
+      userId: req.session.user?.id ?? null
     });
 
-    res.redirect('/profile');
+    res.redirect(req.get('Referer'));
   } catch (error) {
     console.log(error);
-    res.redirect('/profile');
+    res.redirect(req.get('Referer'));
   }
 }

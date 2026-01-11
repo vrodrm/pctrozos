@@ -30,6 +30,7 @@ app.use((req, res, next) => {
     data = jwt.verify(token, process.env.JWT_SECRET);
     req.session.user = data;
     res.locals.username = data.username;
+    res.locals.ownUsername = data.username;
   } catch { }
 
   next();

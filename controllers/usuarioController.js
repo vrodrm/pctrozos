@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import crypto from "node:crypto";
+import { Sequelize } from "sequelize";
 import { Usuario, Build, Pieza, Comentario } from "../models/index.js";
 import { validarLogin, validarRegistro } from "../validators/usuarioValidator.js";
 import jwt from "jsonwebtoken";
@@ -85,9 +86,9 @@ export const showProfile = async (req, res) => {
       { model: Pieza, as: 'case' },
       { model: Pieza, as: 'psu' },
       { model: Pieza, as: 'storage' },
-      { 
-        model: Comentario, 
-        include: [{ model: Usuario, attributes: ['username'] }] 
+      {
+        model: Comentario,
+        include: [{ model: Usuario, attributes: ['username'] }]
       }
     ]
   });
@@ -98,6 +99,56 @@ export const showProfile = async (req, res) => {
   });
 }
 
-//TODO: Método para ver otros perfiles
-// si el usuario que hace la request es el mismo de la url
-// redirigir a /profile O MEJOR, renderizar el perfil )?
+export const viewProfile = async (req, res) => {
+  const { id } = req.params;
+
+  const user = await Usuario.findByPk(id);
+
+  if (!user) {
+    return res.redirect('/');
+  }
+
+  const userBuilds = await Build.findAll({
+    where: { userId: id },
+    include: [
+      { model: Pieza, as: 'cpu' },
+      { model: Pieza, as: 'motherboard' },
+      { model: Pieza, as: 'memory' },
+      { model: Pieza, as: 'gpu' },
+      { model: Pieza, as: 'cooler' },
+      { model: Pieza, as: 'case' },
+      { model: Pieza, as: 'psu' },
+      { model: Pieza, as: 'storage' },
+      {
+        model: Comentario,
+        include: [{ model: Usuario, attributes: ['username'] }]
+      }
+    ]
+  });
+
+  res.render('perfil', {
+    builds: userBuilds,
+    username: user.username,
+    isPublic: true
+  });
+}
+
+export const searchProfiles = async (req, res) => {
+  const { q } = req.query;
+  const { Op } = Sequelize;
+
+  if (!q) {
+    return res.render('search_results', { users: [], query: '' });
+  }
+
+  const users = await Usuario.findAll({
+    where: {
+      username: {
+        [Op.like]: `%${q}%`
+      }
+    },
+    attributes: ['id', 'username']
+  });
+
+  res.render('search_results', { users, query: q });
+}

@@ -6,7 +6,6 @@ export const Comentario = db.define('comments', {
     primaryKey: true,
     type: Sequelize.UUID,
   },
-  //TODO: Revisar que tenga 255 caracteres de máximo
   contenido: {
     type: Sequelize.STRING,
   }

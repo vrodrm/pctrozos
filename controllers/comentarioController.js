@@ -11,7 +11,7 @@ export const postComment = async (req, res) => {
       buildId: buildId,
       userId: req.session.user.id
     });
-  
+
     res.redirect('/profile');
   } catch (error) {
     console.log(error);

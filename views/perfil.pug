@@ -31,7 +31,7 @@ block content
                 i.bi.bi-pc-display.fs-1
             .card-body
               h5.card-title Build ##{build.id.substring(0, 8)}
-              p.card-text.fw-bold.text-primary Precio: $#{totalPrice.toFixed(2)}
+              p.card-text.fw-bold.text-primary #{totalPrice.toFixed(2)}€
               form(action=`/build/delete/${build.id}` method="POST" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta build?');")
                 button.btn.btn-danger.btn-sm.mt-2(type="submit" onclick="event.stopPropagation()") 
                   i.bi.bi-trash.me-1
@@ -71,7 +71,7 @@ block content
                           div
                             strong Memoria: 
                             | #{build.memory.name}
-                        span.badge.bg-primary.rounded-pill $#{build.memory.price}
+                        span.badge.bg-primary.rounded-pill #{build.memory.price}€
                     if build.gpu
                       li.list-group-item.d-flex.justify-content-between.align-items-center
                         .d-flex.align-items-center
@@ -80,7 +80,7 @@ block content
                           div
                             strong GPU: 
                             | #{build.gpu.name}
-                        span.badge.bg-primary.rounded-pill $#{build.gpu.price}
+                        span.badge.bg-primary.rounded-pill #{build.gpu.price}€
                     if build.cooler
                       li.list-group-item.d-flex.justify-content-between.align-items-center
                         .d-flex.align-items-center
@@ -89,7 +89,7 @@ block content
                           div
                             strong Cooler: 
                             | #{build.cooler.name}
-                        span.badge.bg-primary.rounded-pill $#{build.cooler.price}
+                        span.badge.bg-primary.rounded-pill #{build.cooler.price}€
                     if build.case
                       li.list-group-item.d-flex.justify-content-between.align-items-center
                         .d-flex.align-items-center
@@ -98,7 +98,7 @@ block content
                           div
                             strong Case: 
                             | #{build.case.name}
-                        span.badge.bg-primary.rounded-pill $#{build.case.price}
+                        span.badge.bg-primary.rounded-pill #{build.case.price}€
                     if build.psu
                       li.list-group-item.d-flex.justify-content-between.align-items-center
                         .d-flex.align-items-center
@@ -107,7 +107,7 @@ block content
                           div
                             strong PSU: 
                             | #{build.psu.name}
-                        span.badge.bg-primary.rounded-pill $#{build.psu.price}
+                        span.badge.bg-primary.rounded-pill #{build.psu.price}€
                     if build.storage
                       li.list-group-item.d-flex.justify-content-between.align-items-center
                         .d-flex.align-items-center
@@ -116,6 +116,12 @@ block content
                           div
                             strong Almacenamiento: 
                             | #{build.storage.name}
-                        span.badge.bg-primary.rounded-pill $#{build.storage.price}
+                        span.badge.bg-primary.rounded-pill #{build.storage.price}€
+                  .comentarios.mt-2.p-2
+                    h4 Comentarios
+                    form(action="/comment" method="POST")
+                      input(type="text" placeholder="Añade un comentario..." name="content").form-control.rounded-pill
+                      input(type="hidden" value=build.id name="buildId")
+                    p.text-center.mt-5 No hay comentarios.
                 .modal-footer
                   button.btn.btn-secondary(type="button" data-bs-dismiss="modal") Cerrar

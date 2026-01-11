@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { authenticate, register, showLogin, logout, showProfile } from "../controllers/usuarioController.js";
 import { showBuild, getPiezas, saveBuild, deleteBuild } from "../controllers/buildController.js";
+import { postComment } from "../controllers/comentarioController.js";
 
 const router = Router();
 
@@ -26,6 +27,8 @@ router.post('/register', register);
 router.post('/logout', logout);
 
 router.get('/profile', showProfile);
+
+router.post('/comment', postComment);
 
 export default router;
 

@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import crypto from "node:crypto";
-import { Usuario, Build, Pieza } from "../models/index.js";
+import { Usuario, Build, Pieza, Comentario } from "../models/index.js";
 import { validarLogin, validarRegistro } from "../validators/usuarioValidator.js";
 import jwt from "jsonwebtoken";
 
@@ -84,12 +84,17 @@ export const showProfile = async (req, res) => {
       { model: Pieza, as: 'cooler' },
       { model: Pieza, as: 'case' },
       { model: Pieza, as: 'psu' },
-      { model: Pieza, as: 'storage' }
+      { model: Pieza, as: 'storage' },
+      { 
+        model: Comentario, 
+        include: [{ model: Usuario, attributes: ['username'] }] 
+      }
     ]
   });
 
   res.render('perfil', {
     builds: userBuilds,
+    username: req.session.user.username
   });
 }
 

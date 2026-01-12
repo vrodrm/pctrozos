@@ -4,6 +4,7 @@ import { Build } from './Build.js';
 
 export const Pieza = db.define('parts', {
   id: {
+    primaryKey: true,
     type: Sequelize.INTEGER,
   },
   type: {

@@ -3,6 +3,9 @@ import db from '../config/db.js';
 import { Build } from './Build.js';
 
 export const Pieza = db.define('parts', {
+  id: {
+    type: Sequelize.INTEGER,
+  },
   type: {
     type: Sequelize.STRING,
   },
